@@ -1,0 +1,185 @@
+
+
+
+conky.config = {
+	own_window_argb_visual = true,
+	own_window_argb_value = 255,
+	double_buffer = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    alignment = 'top_right',
+    background = true,
+    border_width = 0,
+    cpu_avg_samples = 1,
+	default_color = 'white',
+    default_shade_color = 'white',
+    draw_borders = true,
+    draw_graph_borders = false,
+    draw_outline = true,
+    draw_shades = false,
+    use_xft = true,
+    text_buffer_size=32768,
+    gap_x = 0,
+    gap_y = 0,
+    default_outline_color='white',
+    minimum_height = 1440,
+	minimum_width = 5120,
+    net_avg_samples = 2,
+    no_buffers = true,
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'normal',
+    own_window_colour='white',
+    own_window_transparent=false,
+    stippled_borders = 0,
+    update_interval = 3,
+    uppercase = false,
+    border_inner_margin = 0,
+	border_outer_margin = 0,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false,
+    color0="42c5ed",
+    color1="3A3A3C",
+    color7="59595c",
+    color6="cc2a13",
+    color5="de4710",
+    color4="ff8d09",
+    color3="f4b642",
+    color2="faff00",
+    color9="ff00b5",
+    color8="ff00ff",
+    lua_load="~/.conky/Nemesis_System/wings.lua",
+}
+
+conky.text = [[
+${goto 4033}${font AMDRTG:size=44}${outlinecolor #ff00ff}${color1}WINGED NEMESIS
+${voffset -170}
+${goto 1285}${voffset 150}${font AMDRTG:size=32:weight=Bold}${color1}${outlinecolor #ffffff}cpu
+${goto 1290}${voffset -15}${font AMDRTG:weight=Bold:size=22}model: ${goto 1635}threadripper ${font NEWACADEMY:size=26} 3970X
+${goto 1290}${font AMDRTG:size=22:weight=Bold}running at:${color1}${font NEWACADEMY:weight=Bold:size=26}${goto 1720}${execi 1000 cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq | cut -c 1-4} mhz
+${voffset 5}${goto 1290}${font AMDRTG:size=22:weight=Bold}utilization:${color9}${font NEWACADEMY:weight=Bold:size=26} ${goto 1720}${cpu cpu0}%
+${voffset 5}${goto 1290}${color1}${font AMDRTG:weight=Bold:size=22}active cores: ${color1}${font NEWACADEMY: size=26} ${goto 1720}${color9}${lua count_active}/64
+${goto 2073}${voffset 45}${color1}${voffset 610}${font AMDRTG:size=22:weight=Bold}max core 
+${goto 2058} ${font AMDRTG:size=22:weight=Bold}temp:${color1}${font NEWACADEMY:size=26}
+
+${if_match ${lua sens_read} < 50}${goto 2230}${voffset -82}${color0}${lua sens_read}C\
+${else}${if_match ${lua sens_read} < 60}${goto 2230}${voffset -82}${outlinecolor #3A3A3C}${color2}${lua sens_read}C\
+${else}${if_match ${lua sens_read} < 68}${goto 2230}${voffset -82}${color3}${lua sens_read}C \
+${else}${if_match ${lua sens_read} < 72}${goto 2230}${voffset -82}${color4}${lua sens_read}C \
+${else}${if_match ${lua sens_read} < 78}${goto 2230}${voffset -82}${color5}${lua sens_read}C \
+${else}${voffset 2}${goto 2230}${voffset -82}${color6}${lua sens_read}C ${endif}${endif}${endif}${endif}${endif}
+
+
+${voffset -968}${color7}${outlinecolor #FFFFFF} ${font AMDRTG:weight=Bold:size=22} ${goto 2793} gpu ${goto 2780} ${voffset 35} temp:  ${color1} ${goto 2949}${font NEWACADEMY: size=26} ${nvidia temp}C
+
+${voffset 430}
+${font AMDRTG:weight=Bold:size=32}${color7}${outlinecolor #FFFFFF}${goto 2847}${voffset 190}memory
+${font AMDRTG:weight=Bold:size=22}${voffset -13}${goto 2850}${color7}ram:  ${alignr 1720}${color8}${font NEWACADEMY:size=26} ${mem} / ${color8}${memmax}
+
+${voffset -380}
+${font AMDRTG:weight=Bold:size=32}${color7}${outlinecolor #FFFFFF}${goto 3955}${voffset 0}gpu
+${font AMDRTG:weight=Bold:size=22}${color7}${outlinecolor #FFFFFF}${goto 3960}${voffset 0}model:    nvidia ${font NEWACADEMY:size=26}2080 ti
+${font AMDRTG:weight=Bold:size=22}${color7}${outlinecolor #FFFFFF}${goto 3960}${voffset 0}running at: ${goto 4348}${font NEWACADEMY:size=26} ${nvidia gpufreq} mhz
+${font AMDRTG:weight=Bold:size=22}${color7}${outlinecolor #FFFFFF}${goto 3960}${voffset 0}utilization: ${goto 4348}${font NEWACADEMY:size=26}${color #F380F7}${exec nvidia-smi | grep % | cut -c 61-63} %
+${font AMDRTG:weight=Bold:size=22}${color7}${outlinecolor #FFFFFF}${goto 3960}${voffset 0}vram in use:${alignr 481}${color #b0b0b0}${font NEWACADEMY:size=26}${lua conky_round ${exec nvidia-smi | grep % | cut -c 34-40} } GiB/11 GiB
+
+
+
+${voffset -297}
+${if_match ${lua show_main}>0}
+${goto 234}${voffset -220}${font AMDRTG:size=38}${color1}subprocess:
+${if_match ${lua main_name_len} < 27} ${goto 240}${voffset -10}${font AMDRTG:size=22}${color1}name:${goto 394}${outlinecolor #FFFFFF}${color #FF69EF}${lua main_process_name}${voffset -40}
+${else} ${if_match ${lua main_name_len}<50}${goto 240}${voffset 0}${font AMDRTG:size=22}${color1}name:${color #FF69EF}${outlinecolor #FFFFFF}${goto 400}${lua main_process_name1}
+${goto 240}${lua main_process_name2} ${voffset -35}
+${else} ${goto 240}${voffset 0}${font AMDRTG:size=22}${color1}name:${color #FF69EF}${outlinecolor #FFFFFF}${goto 400}${lua main_process_name1}
+${goto 240}${lua main_process_name2} 
+${goto 240}${lua main_process_name3} ${endif}${endif}
+${goto 225}${voffset -5}${font AMDRTG:size=22}${color1}${outlinecolor #ffffff} progress:${color1}${outlinecolor #FFFFFF}  ${goto 590} ${font NEWACADEMY:size=22} ${lua main_proc_prog_frac} ${font NEWACADEMY:size=22}${lua main_proc_prog_per}%
+${if_match ${lua averaging_subthreads}>0} ${goto 238}${voffset -5}${font AMDRTG:size=22}${color1}${outlinecolor #ffffff}finalized:${goto 590} ${font NEWACADEMY:size=22} ${lua get_active_subthreads} ${else} ${voffset -30}${endif} 
+${goto 225}${voffset -3}${font AMDRTG:size=22}${color1} ${outlinecolor #ffffff}runtime:${color1} ${outlinecolor #FFFFFF}${goto 570} ${font NEWACADEMY:size=22}  ${lua main_proc_runtime}
+${if_match ${lua show_main_details1}>0}${goto 225}${voffset 0}${font AMDRTG:size=20}${color1}${outlinecolor #ffffff} details: ${outlinecolor #FFFFFF}${color1}${goto 500} ${font NEWACADEMY: size=20}${lua main_proc_details1}
+${else} ${goto 170}${voffset 30}${font AMDRTG:size=20}      ${color1}${color9}${goto 390}${font AMDRTG:size=13}         ${endif}
+${if_match ${lua show_main_details2}>0}${voffset -25}${color9}${goto 417}${font AMDRTG:size=13}${lua main_proc_details2}
+${else}${voffset 0}${color9} ${goto 465}${font AMDRTG:size=13}${endif}
+${else}
+${voffset -105}
+${endif}
+
+${if_match ${lua show_mini}>0}
+${goto 234}${voffset -85}${font AMDRTG:size=38}${color1}${outlinecolor #FFFFFF}subthreads:
+${goto 240}${voffset -10}${font AMDRTG:size=22}${color1}name: ${color #b0b0b0}${goto 480}   ${lua get_mini_name}   ${lua get_oa_subbar_detail}
+${goto 225}${voffset 0}${font AMDRTG:size=22}${color1}${outlinecolor #FFFFFF} progress: ${outlinecolor #FFFFFF}${color #000000} ${font NEWACADEMY: size=22}${goto 570}   ${lua mini_prog_frac}     ${lua mini_prog_report} % 
+${goto 225}${voffset 0}${font AMDRTG:size=22}${color1} ${outlinecolor #FFFFFF}runtime: ${outlinecolor #FFFFFF}${color #000000} ${goto 574} ${font NEWACADEMY: size=22}  ${lua get_mini_runtime}      ${if_match ${lua get_oa_subbar_todo}>0}     ${outlinecolor #ea0ffa}${color1}    ${lua get_oa_subbar_runtime} ${endif}
+${if_match ${lua show_mini_detail}>0}${goto 225}${voffset 0}${font AMDRTG:size=20}${color1} ${outlinecolor #FFFFFF}Details: ${outlinecolor #FFFFFF}${color #000000} ${goto 2310}${lua get_mini_detail}
+${outlinecolor #FFFFFF}${color #000000} ${goto 2310} ${lua get_mini_detail2}
+${else} ${goto 2090}${voffset 5}${font AMDRTG:size=20}${color1} ${outlinecolor #FFFFFF}           ${outlinecolor #FFFFFF}${color #000000} ${goto 2310}  ${voffset 40}      
+${outlinecolor #FFFFFF}${color #000000} ${goto 2310} ${endif} 
+${else} ${voffset 335}
+${endif}
+
+${voffset -425}
+${if_match ${lua show_OA}>0}
+${goto 4030}${voffset -1058}${font AMDRTG:size=38}${color1}${outlinecolor #FFFFFF}current process:
+${goto 4024}${voffset -10}${font AMDRTG:size=22}${color1} name:${outlinecolor #FFFFFF}${goto 4240}${color #FF00B5}${lua get_OA_name}
+${goto 4024}${voffset 2}${font AMDRTG:size=22}${color1}${outlinecolor #FFFFFF} progress:${outlinecolor #FFFFFF}${goto 4400}${font NEWACADEMY: size=22}${lua OA_prog_frac}  ${lua OA_prog_report}% 
+${goto 4024}${voffset 2}${font AMDRTG:size=22}${color1}${outlinecolor #FFFFFF} runtime:${outlinecolor #FFFFFF}${goto 4400}${font NEWACADEMY: size=22}${lua get_OA_runtime} ${if_match ${lua get_oa_supbar_todo}>0}     ${color #ffffff}${outlinecolor #ea0ffa}    ${lua get_oa_supbar_runtime} ${endif}
+${if_match ${lua show_OA_details}>0}${goto 4026}${voffset 5}${font AMDRTG:size=20}${color1} ${outlinecolor #FFFFFF}details: ${outlinecolor #FFFFFF}${goto 4280}${lua get_OA_details} ${else} ${goto 2750}${voffset 5}${font AMDRTG:size=20}${color1} ${outlinecolor #FFFFFF} ${outlinecolor #FFFFFF}${goto 2980} ${endif}
+${else}
+${voffset -915}
+${endif}
+
+
+${if_match ${lua show_task}>0} 
+${goto 4030}${voffset -100}${font AMDRTG:size=38}${color1}${outlinecolor #FFFFFF}current task:
+${outlinecolor #FFFFFF}${goto 4024}${voffset -10}${font AMDRTG:size=22}${color1} name:${color #b0b0b0}${outlinecolor #FFFFFF} ${goto 4240} ${lua get_Mega_process_name}
+${outlinecolor #FFFFFF}${goto 4024}${voffset 2}${font AMDRTG:size=22}${color1} progress:${color #000000} ${outlinecolor #FFFFFF}${goto 4400}${font NEWACADEMY: size=22}${lua mega_prog_frac}  ${lua Mega_prog_report} % 
+${outlinecolor #FFFFFF}${goto 4024}${voffset 2}${font AMDRTG:size=22}${color1} runtime:${color #000000}${goto 4400}${outlinecolor #FFFFFF}${font NEWACADEMY: size=22}${lua get_Mega_runtime}${if_match ${lua conky_get_SUBOA_todo}>0} ${color1}${outlinecolor #e0b0ff}${lua get_SUBOA_runtime} ${endif}
+${if_match ${lua show_Mega_details}>0} ${outlinecolor #FFFFFF} ${goto 3650}${voffset 5}${font AMDRTG:size=20}${color1} Details: ${color #000000}${goto 4100}${outlinecolor #FFFFFF}${font AMDRTG:size=18}  ${lua get_Mega_details1} 
+${outlinecolor #FFFFFF}${color #000000}${goto 445}${font AMDRTG:size=18}  ${lua get_Mega_details2} 
+${outlinecolor #FFFFFF}${color #000000}${goto 445}${font AMDRTG:size=18}  ${lua get_Mega_details3} ${voffset 5} ${endif}
+${if_match ${lua show_Mega_subtask}>0} ${outlinecolor #FFFFFF} ${goto 3650}${voffset 0}${font AMDRTG:size=20}${color1} Subtask: ${color1}${outlinecolor #fe82fd} ${goto 445} ${lua get_Mega_subtask_name} 
+${if_match ${lua megasub_just_name}<1} ${outlinecolor #FFFFFF} ${goto 3650}${voffset 5}${font AMDRTG:size=20}${color1} Progress: ${color1}${outlinecolor #fe82fd} ${goto 445} ${lua get_megasub_prog_frac}  ${font Federation:size=20} (${lua get_megasub_prog_report} % ) 
+${outlinecolor #FFFFFF} ${goto 3650}${voffset 5}${font AMDRTG:size=20}${color1} Runtime: ${color1}${outlinecolor #fe82fd} ${goto 445} ${lua get_megasub_runtime} 
+${else}
+${outlinecolor #FFFFFF} ${goto 3650}${voffset 5}${font AMDRTG:size=20}${color1}${color1}${outlinecolor #fe82fd} ${goto 445}
+${outlinecolor #FFFFFF} ${goto 3650}${voffset 5}${font AMDRTG:size=20}${color1}${color1}${outlinecolor #fe82fd} ${goto 445}
+${endif}
+${endif}
+${else}
+
+${endif}
+
+
+
+${image /home/storms/Progress/Images/gauges/background_elements/nemesis_wallpaper.png -s 5120x1440 -p 0,0}
+
+${image /home/storms/Progress/Images/gauges/temp_gaugej_bl.png -p 2160,820 -f 1}
+${image /home/storms/Progress/Images/gauges/temp_gaugej_tl.png  -p 1900,290 -f 1}
+${image /home/storms/Progress/Images/gauges/temp_gaugej_br.png  -p 2402,794 -f 1}
+${image /home/storms/Progress/Images/gauges/temp_gaugej_tr.png  -p 2330,332 -f 1}
+
+${image /home/storms/Progress/Images/gauges/zotac_symbol.png   -p 3650,882 -f 1}
+${image /home/storms/Progress/Images/gauges/Zotac_Wings.png  -p 3645,1162 -f 1}
+
+
+
+${if_match ${lua show_main}>0}${image /home/storms/Progress/Images/progress_bars/progress_gauage_l.png   -p 960,700 -f 2}${endif}
+
+${if_match ${lua show_mini}>0}${image /home/storms/Progress/Images/progress_bars/progress_gauage_m.png  -p 1300,790 -f 2}${endif}
+
+
+
+${if_match ${lua show_OA}>0}${image /home/storms/Progress/Images/progress_bars/progress_gauage_r.png -p 2970,-50 -f 2}${endif}
+
+
+
+${if_match ${lua show_task}>0}${image /home/storms/Progress/Images/progress_bars/progress_gauage_m2.png -p 3060,110 -f 2}${endif}
+
+${exec python3 /home/storms/Progress/conky_python_script.py}
+
+${font}
+
+]]; 
